@@ -1,6 +1,6 @@
 FROM node:16
 
-WORKDIR /usr/src/app
+WORKDIR /usr/src/front
 
 COPY package*.json .
 
@@ -15,4 +15,3 @@ RUN pnpm run build
 EXPOSE 5173
 
 CMD ["pnpm", "run", "preview"]
-
