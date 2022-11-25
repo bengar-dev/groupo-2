@@ -1,0 +1,20 @@
+services:
+  app:
+    build: ./back-api
+    container_name: api-groupo
+    command: pnpm run dev
+    ports:
+      - 8080:8080
+    volumes:
+      - ./back-api:/usr/src/app
+      - /usr/src/app/node_modules
+
+  front:
+    build: ./front
+    container_name: front-groupo
+    command: pnpm run dev
+    ports:
+      - 5173:5173
+    volumes:
+      - ./front:/usr/src/app
+      - /usr/src/app/node_modules    

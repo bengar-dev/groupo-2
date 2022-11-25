@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.get("/", (req, res) => res.send(`Home`));
+app.get("/", (req, res) => res.send(`test`));
 
 app.listen(process.env.API_PORT, () => {
   console.log("🚀 Server is launching...");

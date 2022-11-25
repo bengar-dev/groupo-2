@@ -1,0 +1,13 @@
+{
+  "name": "groupomania",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "reset": "docker-compose up --build",
+    "restart": "docker-compose up"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
