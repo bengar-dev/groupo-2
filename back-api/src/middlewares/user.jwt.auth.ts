@@ -23,7 +23,6 @@ export const authVerification = async (
     if (!user) throw new Error("User not found");
     next();
   } catch (err: any) {
-    console.log(err);
     return res.status(401).json({ error: err.message });
   }
 };
