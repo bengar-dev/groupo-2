@@ -21,6 +21,7 @@ export const authVerification = async (
       where: { id: userId },
     });
     if (!user) throw new Error("User not found");
+    res.locals.userId = userId;
     next();
   } catch (err: any) {
     return res.status(401).json({ error: err.message });

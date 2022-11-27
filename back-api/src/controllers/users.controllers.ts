@@ -35,6 +35,21 @@ export const getOneUser = async (
   }
 };
 
+export const getUserInfoByToken = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const { userId } = res.locals;
+  try {
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+    if (!user) throw new Error("User not found");
+    const cleanUser = deleteKeysFromData([user], ["password"], true);
+    return res.status(200).json(cleanUser);
+  } catch (err: any) {
+    return res.status(500).json({ error: err.message });
+  }
+};
+
 export const registerOneUser = async (
   req: Request,
   res: Response
