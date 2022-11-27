@@ -24,7 +24,7 @@ export const useGetInfoByToken = () => {
       }
     },
     onSuccess: () => {
-      if (pathname === "/") navigate("/dashboard");
+      if (pathname === "/" || pathname === "/register") navigate("/dashboard");
     },
     onError: () => {
       if (pathname !== "/" && pathname !== "/register") {
@@ -37,9 +37,6 @@ export const useGetInfoByToken = () => {
       } else {
         if (token) {
           localStorage.removeItem("token");
-          navigate("/");
-        } else {
-          navigate("/");
         }
       }
     },
