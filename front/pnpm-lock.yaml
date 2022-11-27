@@ -9,6 +9,7 @@ specifiers:
   '@vitejs/plugin-react': ^2.2.0
   autoprefixer: ^10.4.13
   axios: ^1.2.0
+  date-fns: ^2.29.3
   postcss: ^8.4.19
   react: ^18.2.0
   react-dom: ^18.2.0
@@ -25,6 +26,7 @@ dependencies:
   '@material-tailwind/react': 1.2.4_2zx2umvpluuhvlq44va5bta2da
   '@tanstack/react-query': 4.18.0_biqbaboplfbrettd7655fr4n2y
   axios: 1.2.0
+  date-fns: 2.29.3
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-hook-form: 7.39.5_react@18.2.0
@@ -767,6 +769,11 @@ packages:
 
   /csstype/3.1.1:
     resolution: {integrity: sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==}
+
+  /date-fns/2.29.3:
+    resolution: {integrity: sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA==}
+    engines: {node: '>=0.11'}
+    dev: false
 
   /debug/4.3.4:
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}

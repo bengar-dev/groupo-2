@@ -9,7 +9,10 @@ export const getAllPublications = async (
   res: Response
 ): Promise<Response> => {
   try {
-    const publications = await prisma.publication.findMany();
+    const publications = await prisma.publication.findMany({
+      include: { author: true },
+      orderBy: { createdAt: "desc" },
+    });
     return res.status(200).json(publications);
   } catch (err: any) {
     return res.status(500).json({ error: err.message });
