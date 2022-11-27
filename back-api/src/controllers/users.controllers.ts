@@ -54,7 +54,7 @@ export const registerOneUser = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const { email, password, firstName, lastName } = req.body;
+  const { email, password, firstName, lastName } = req.body.data;
   try {
     const hashPassword = await bcrypt.hash(password, 10);
     const user = (await prisma.user.findUnique({ where: { email } }))

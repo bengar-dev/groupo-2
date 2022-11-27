@@ -1,10 +1,10 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 
-export const useSignIn = () => {
+export const useRegister = () => {
   const navigate = useNavigate();
 
   const { handleToggleAlert } = useContext(AppContext);
@@ -12,20 +12,26 @@ export const useSignIn = () => {
   return useMutation({
     mutationFn: async (data: any) => {
       const { data: response } = await axios.post(
-        `${import.meta.env.VITE_API_GROUPO}/users/signin`,
+        `${import.meta.env.VITE_API_GROUPO}/users/signup`,
         data
       );
-      if (response.token) localStorage.setItem("token", response.token);
     },
     onSuccess: () => {
       handleToggleAlert(
         {
           toggle: true,
           type: "success",
-          value: "You has been logged, you are gonna be redirected",
+          value: "You has been registered",
         },
-        "/dashboard"
+        "/"
       );
+    },
+    onError: (error: any) => {
+      handleToggleAlert({
+        toggle: true,
+        type: "error",
+        value: error?.response?.data?.error,
+      });
     },
   });
 };

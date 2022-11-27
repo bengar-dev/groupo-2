@@ -1,33 +1,35 @@
-import { Controller, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-
-import { MainBlock } from "../components/ui/MainBlock";
 import { BlockForm } from "../components/ui/BlockForm";
-import { Button, Input } from "@material-tailwind/react";
+import { MainBlock } from "../components/ui/MainBlock";
 
 import GroupoLogo from "../assets/GroupomaniaLogoBright.png";
-import { signInSchema } from "../schemas/auth";
-import { useSignIn } from "../hooks/auth/useSignIn";
-
-import { ImSpinner2 } from "react-icons/im";
+import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { registerSchema } from "../schemas/auth";
+import { Button, Input } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
-import { useContext, useEffect } from "react";
-import { useGetInfoByToken } from "../hooks/users/useGetInfoByToken";
-import { AppContext } from "../context/AppContext";
-import { AlertNotif } from "../components/ui/AlertNotif";
 
-export const SignIn = () => {
+import { CheckingPassword } from "../components/misc/CheckingPassword";
+import { useRegister } from "../hooks/auth/useRegister";
+import { ImSpinner2 } from "react-icons/im";
+import { useGetInfoByToken } from "../hooks/users/useGetInfoByToken";
+import { AlertNotif } from "../components/ui/AlertNotif";
+import { useContext } from "react";
+import { AppContext } from "../context/AppContext";
+
+export const Register = () => {
   const { toggleAlert } = useContext(AppContext);
+
   const userInfo = useGetInfoByToken();
-  const mutation = useSignIn();
+  const mutation = useRegister();
 
   const {
     control,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm({
-    defaultValues: { email: "", password: "" },
-    resolver: yupResolver(signInSchema),
+    defaultValues: { email: "", firstName: "", lastName: "", password: "" },
+    resolver: yupResolver(registerSchema),
   });
 
   const onSubmit = async (data: any) => {
@@ -60,6 +62,30 @@ export const SignIn = () => {
             )}
           />
           <Controller
+            name="firstName"
+            control={control}
+            render={({ field }) => (
+              <Input
+                label="Firstname"
+                type="text"
+                {...field}
+                error={Boolean(errors?.firstName)}
+              />
+            )}
+          />
+          <Controller
+            name="lastName"
+            control={control}
+            render={({ field }) => (
+              <Input
+                label="Lastname"
+                type="text"
+                {...field}
+                error={Boolean(errors?.lastName)}
+              />
+            )}
+          />
+          <Controller
             name="password"
             control={control}
             render={({ field }) => (
@@ -70,6 +96,10 @@ export const SignIn = () => {
                 error={Boolean(errors?.password)}
               />
             )}
+          />
+          <CheckingPassword
+            value={watch("password")}
+            errors={errors?.password}
           />
           <Button
             type="submit"
@@ -82,15 +112,15 @@ export const SignIn = () => {
             {mutation?.isLoading ? (
               <ImSpinner2 className="text-xl ml-auto mr-auto animate-spin" />
             ) : (
-              "Sign-in"
+              "Register"
             )}
           </Button>
         </form>
       </BlockForm>
       <div className="p-1 text-sm flex space-x-1">
-        <span>Not register yet ?</span>
-        <Link to="/register" className="hover:text-red-600">
-          Create your account now !
+        <span>Already have an account ?</span>
+        <Link to="/" className="hover:text-red-600">
+          Sign in now !
         </Link>
       </div>
     </MainBlock>
