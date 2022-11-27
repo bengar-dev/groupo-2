@@ -7,11 +7,15 @@ import { Button, Input } from "@material-tailwind/react";
 
 import GroupoLogo from "../assets/GroupomaniaLogoBright.png";
 import { signInSchema } from "../schemas/auth";
-import { useSignIn } from "../hooks/useSignIn";
+import { useSignIn } from "../hooks/auth/useSignIn";
 
 import { ImSpinner2 } from "react-icons/im";
+import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useGetInfoByToken } from "../hooks/users/useGetInfoByToken";
 
 export const SignIn = () => {
+  const userInfo = useGetInfoByToken();
   const mutation = useSignIn();
 
   const {
@@ -22,6 +26,8 @@ export const SignIn = () => {
     defaultValues: { email: "", password: "" },
     resolver: yupResolver(signInSchema),
   });
+
+  useEffect(() => {}, []);
 
   const onSubmit = async (data: any) => {
     mutation.mutate({
@@ -79,6 +85,12 @@ export const SignIn = () => {
           </Button>
         </form>
       </BlockForm>
+      <div className="p-1 text-sm flex space-x-1">
+        <span>Not register yet ?</span>
+        <Link to="/register" className="hover:text-red-600">
+          Create your account now !
+        </Link>
+      </div>
     </MainBlock>
   );
 };
