@@ -11,10 +11,13 @@ import { useSignIn } from "../hooks/auth/useSignIn";
 
 import { ImSpinner2 } from "react-icons/im";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useGetInfoByToken } from "../hooks/users/useGetInfoByToken";
+import { AppContext } from "../context/AppContext";
+import { AlertNotif } from "../components/ui/AlertNotif";
 
 export const SignIn = () => {
+  const { toggleAlert } = useContext(AppContext);
   const userInfo = useGetInfoByToken();
   const mutation = useSignIn();
 
@@ -35,6 +38,7 @@ export const SignIn = () => {
 
   return (
     <MainBlock center>
+      {toggleAlert.toggle && <AlertNotif />}
       <BlockForm>
         <div className="flex justify-center">
           <img src={GroupoLogo} className="w-40" />

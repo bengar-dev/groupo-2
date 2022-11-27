@@ -10,6 +10,7 @@ export const useGetInfoByToken = () => {
 
   return useQuery({
     queryKey: ["userInfo"],
+    refetchOnWindowFocus: false,
     queryFn: async () => {
       if (token) {
         const response = await axios.get(

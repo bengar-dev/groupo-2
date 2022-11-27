@@ -5,7 +5,7 @@ import GroupoLogo from "../assets/GroupomaniaLogoBright.png";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registerSchema } from "../schemas/auth";
-import { Alert, Button, Input } from "@material-tailwind/react";
+import { Button, Input } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 
 import { CheckingPassword } from "../components/misc/CheckingPassword";
@@ -13,8 +13,12 @@ import { useRegister } from "../hooks/auth/useRegister";
 import { ImSpinner2 } from "react-icons/im";
 import { useGetInfoByToken } from "../hooks/users/useGetInfoByToken";
 import { AlertNotif } from "../components/ui/AlertNotif";
+import { useContext } from "react";
+import { AppContext } from "../context/AppContext";
 
 export const Register = () => {
+  const { toggleAlert } = useContext(AppContext);
+
   const userInfo = useGetInfoByToken();
   const mutation = useRegister();
 
@@ -36,7 +40,7 @@ export const Register = () => {
 
   return (
     <MainBlock center>
-      <AlertNotif value="Erreur blablabla" type="error" />
+      {toggleAlert.toggle && <AlertNotif />}
       <BlockForm>
         <div className="flex justify-center">
           <img src={GroupoLogo} className="w-40" />
