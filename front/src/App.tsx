@@ -1,10 +1,10 @@
 import { Routes, Route } from "react-router-dom";
-import { HelloWorld } from "./components/HelloWorld";
+import AppContextProvider from "./context/AppContext";
 
 // views
 import { SignIn } from "./views/SignIn";
 import { Register } from "./views/Register";
-import AppContextProvider from "./context/AppContext";
+import { Dashboard } from "./views/Dashboard";
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<SignIn />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<HelloWorld />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </AppContextProvider>
   );

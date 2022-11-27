@@ -1,11 +1,13 @@
 import { createContext, useState } from "react";
 import { AlertNotifProps } from "../components/ui/AlertNotif";
 import { useNavigate } from "react-router-dom";
+import { UserProps } from "../types/users.types";
 
 export const AppContext = createContext<any>({});
 
 const AppContextProvider = (props: any) => {
   const navigate = useNavigate();
+  const [userInfoContext, setUserInfoContext] = useState<UserProps>();
   const [toggleAlert, setToggleAlert] = useState<AlertNotifProps>({
     toggle: false,
     type: "info",
@@ -25,7 +27,14 @@ const AppContextProvider = (props: any) => {
   };
 
   return (
-    <AppContext.Provider value={{ toggleAlert, handleToggleAlert }}>
+    <AppContext.Provider
+      value={{
+        toggleAlert,
+        handleToggleAlert,
+        userInfoContext,
+        setUserInfoContext,
+      }}
+    >
       {props.children}
     </AppContext.Provider>
   );
