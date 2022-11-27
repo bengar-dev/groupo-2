@@ -26,7 +26,10 @@ export const getOneUser = async (
 ): Promise<Response> => {
   const { id } = req.params;
   try {
-    const user = await prisma.user.findUnique({ where: { id } });
+    const user = await prisma.user.findUnique({
+      where: { id },
+      include: { Publication: true },
+    });
     if (!user) throw new Error("User not found");
     const cleanUser = deleteKeysFromData([user], ["password"], true);
     return res.status(200).json(cleanUser);
