@@ -11,7 +11,7 @@ export const PublicationArticle = (props: PublicationArticleProps) => {
   const { publication } = props;
   return (
     <article className="p-2 text-sm rounded-lg bg-gray-50">
-      <div className="flex items-center justify-between p-1">
+      <div className="relative flex items-center justify-between p-1">
         <div className="flex items-center space-x-2">
           <div className="rounded-full bg-green-500 h-8 w-8"></div>
           <div className="flex flex-col">
@@ -22,6 +22,18 @@ export const PublicationArticle = (props: PublicationArticleProps) => {
               {formatDistance(new Date(publication.createdAt), new Date())}
             </span>
           </div>
+        </div>
+        <div className="absolute bg-white rounded-lg border-2 p-2 right-0 top-8">
+          <ul className="flex flex-col text-sm font-bold">
+            <li>
+              <button
+                onClick={() => console.log("delete")}
+                className="hover:text-red-500"
+              >
+                Delete
+              </button>
+            </li>
+          </ul>
         </div>
         <button
           className="text-lg hover:text-red-500"
