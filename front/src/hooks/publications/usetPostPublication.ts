@@ -15,9 +15,11 @@ export const usePostPublication = () => {
     },
     onSuccess: async () => {
       await queryClient.refetchQueries({ queryKey: ["allPublications"] });
+      return true;
     },
     onError: (err: any) => {
       console.log(err);
+      return false;
     },
   });
 };

@@ -2,36 +2,47 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Input, Textarea } from "@material-tailwind/react";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { ImSpinner } from "react-icons/im";
 import { usePostPublication } from "../../hooks/publications/usetPostPublication";
 import { publishPublicationSchema } from "../../schemas/publications";
 
 export const PublishContent = () => {
   const [togglePublish, setTogglePublish] = useState<boolean>(false);
 
-  const postPublication = usePostPublication();
+  const { mutateAsync, isLoading, isSuccess } = usePostPublication();
 
   const {
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
+    defaultValues: { content: "", img: "" },
     resolver: yupResolver(publishPublicationSchema),
   });
+
+  /**
+   *
+   * TODO: isSuccess after mutation ?
+   */
 
   const onSubmit = async (data: any, e: any) => {
     // tricky but one way to change our field img to get our file from our form
     if (data.img) {
       data.img = e.target.file.files[0];
     }
-
     const formData = new FormData();
     formData.append("content", data.content);
     formData.append("img", data.img);
-
-    postPublication.mutate({
+    await mutateAsync({
       formData,
     });
+    if (isSuccess) {
+      reset();
+      setTogglePublish(false);
+    }
   };
+
   return (
     <div className="flex flex-col space-y-2 bg-gray-50 p-2 rounded">
       <Button
@@ -65,7 +76,13 @@ export const PublishContent = () => {
             )}
           />
           <Button type="submit" color="green">
-            Submit
+            {isLoading ? (
+              <div className="flex justify-center">
+                <ImSpinner className="animate-spin text-xl text-pink-500" />
+              </div>
+            ) : (
+              "Submit"
+            )}
           </Button>
         </form>
       )}
