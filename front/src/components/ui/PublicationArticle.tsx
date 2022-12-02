@@ -2,6 +2,9 @@ import { PublicationProps } from "../../types/publications.types";
 import { formatDistance } from "date-fns";
 import { HiMenuAlt4 } from "react-icons/hi";
 import { AiOutlineLike } from "react-icons/ai";
+import { useContext } from "react";
+import { AppContext } from "../../context/AppContext";
+import { useDeletePublication } from "../../hooks/publications/useDeletePublication";
 
 interface PublicationArticleProps {
   publication: PublicationProps;
@@ -9,6 +12,13 @@ interface PublicationArticleProps {
 
 export const PublicationArticle = (props: PublicationArticleProps) => {
   const { publication } = props;
+  const { userInfoContext } = useContext(AppContext);
+  const deletePublication = useDeletePublication();
+
+  const handeDeletePublication = (id: string) => {
+    deletePublication.mutate({ id });
+  };
+
   return (
     <article className="p-2 text-sm rounded-lg bg-gray-50">
       <div className="relative flex items-center justify-between p-1">
@@ -26,12 +36,14 @@ export const PublicationArticle = (props: PublicationArticleProps) => {
         <div className="absolute bg-white rounded-lg border-2 p-2 right-0 top-8">
           <ul className="flex flex-col text-sm font-bold">
             <li>
-              <button
-                onClick={() => console.log("delete")}
-                className="hover:text-red-500"
-              >
-                Delete
-              </button>
+              {publication.authorId === userInfoContext?.id && (
+                <button
+                  onClick={() => handeDeletePublication(publication.id)}
+                  className="hover:text-red-500"
+                >
+                  Delete
+                </button>
+              )}
             </li>
           </ul>
         </div>
