@@ -2,9 +2,9 @@ import { PublicationProps } from "../../types/publications.types";
 import { formatDistance } from "date-fns";
 import { HiMenuAlt4 } from "react-icons/hi";
 import { AiOutlineLike } from "react-icons/ai";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AppContext } from "../../context/AppContext";
-import { useDeletePublication } from "../../hooks/publications/useDeletePublication";
+import { DropMenuPublication } from "./DropMenuPublication";
 
 interface PublicationArticleProps {
   publication: PublicationProps;
@@ -12,12 +12,8 @@ interface PublicationArticleProps {
 
 export const PublicationArticle = (props: PublicationArticleProps) => {
   const { publication } = props;
+  const [toggleDropMenu, setToggleDropMenu] = useState<boolean>(false);
   const { userInfoContext } = useContext(AppContext);
-  const deletePublication = useDeletePublication();
-
-  const handeDeletePublication = (id: string) => {
-    deletePublication.mutate({ id });
-  };
 
   return (
     <article className="p-2 text-sm rounded-lg bg-gray-50">
@@ -33,26 +29,22 @@ export const PublicationArticle = (props: PublicationArticleProps) => {
             </span>
           </div>
         </div>
-        <div className="absolute bg-white rounded-lg border-2 p-2 right-0 top-8">
-          <ul className="flex flex-col text-sm font-bold">
-            <li>
-              {publication.authorId === userInfoContext?.id && (
-                <button
-                  onClick={() => handeDeletePublication(publication.id)}
-                  className="hover:text-red-500"
-                >
-                  Delete
-                </button>
-              )}
-            </li>
-          </ul>
-        </div>
-        <button
-          className="text-lg hover:text-red-500"
-          onClick={() => console.log("actions")}
-        >
-          <HiMenuAlt4 />
-        </button>
+        {toggleDropMenu && userInfoContext && (
+          <DropMenuPublication
+            publicationId={publication.id}
+            authorId={publication.authorId}
+            userInfoId={userInfoContext.id}
+            func={() => setToggleDropMenu(!toggleDropMenu)}
+          />
+        )}
+        {publication.authorId === userInfoContext?.id && (
+          <button
+            className="text-lg hover:text-red-500"
+            onClick={() => setToggleDropMenu(!toggleDropMenu)}
+          >
+            <HiMenuAlt4 />
+          </button>
+        )}
       </div>
       {publication.imgUrl && (
         <img
