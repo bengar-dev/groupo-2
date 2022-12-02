@@ -2,11 +2,14 @@ import { createContext, useState } from "react";
 import { AlertNotifProps } from "../components/ui/AlertNotif";
 import { useNavigate } from "react-router-dom";
 import { UserProps } from "../types/users.types";
+import { ModalAlertProps } from "../components/ui/ModalAlert";
 
 export const AppContext = createContext<any>({});
 
 const AppContextProvider = (props: any) => {
   const navigate = useNavigate();
+  const [toggleModal, setToggleModal] = useState<boolean>(false);
+  const [modalProps, setModalProps] = useState<ModalAlertProps>();
   const [userInfoContext, setUserInfoContext] = useState<UserProps>();
   const [toggleAlert, setToggleAlert] = useState<AlertNotifProps>({
     toggle: false,
@@ -33,6 +36,10 @@ const AppContextProvider = (props: any) => {
         handleToggleAlert,
         userInfoContext,
         setUserInfoContext,
+        toggleModal,
+        setToggleModal,
+        modalProps,
+        setModalProps,
       }}
     >
       {props.children}

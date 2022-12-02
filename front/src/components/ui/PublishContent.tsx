@@ -9,7 +9,7 @@ import { publishPublicationSchema } from "../../schemas/publications";
 export const PublishContent = () => {
   const [togglePublish, setTogglePublish] = useState<boolean>(false);
 
-  const { mutateAsync, isLoading, isSuccess } = usePostPublication();
+  const { mutateAsync, isLoading, isError } = usePostPublication();
 
   const {
     control,
@@ -20,11 +20,6 @@ export const PublishContent = () => {
     defaultValues: { content: "", img: "" },
     resolver: yupResolver(publishPublicationSchema),
   });
-
-  /**
-   *
-   * TODO: isSuccess after mutation ?
-   */
 
   const onSubmit = async (data: any, e: any) => {
     // tricky but one way to change our field img to get our file from our form
@@ -37,7 +32,7 @@ export const PublishContent = () => {
     await mutateAsync({
       formData,
     });
-    if (isSuccess) {
+    if (!isLoading && !isError) {
       reset();
       setTogglePublish(false);
     }

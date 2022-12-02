@@ -7,13 +7,14 @@ import { formatDistance } from "date-fns";
 import { HiMenuAlt4 } from "react-icons/hi";
 import { AiOutlineLike } from "react-icons/ai";
 import { PublicationArticle } from "../components/ui/PublicationArticle";
-import { Button, Input, Textarea } from "@material-tailwind/react";
-import { useState } from "react";
 import { PublishContent } from "../components/ui/PublishContent";
 import { ImSpinner } from "react-icons/im";
+import { ModalAlert } from "../components/ui/ModalAlert";
+import { useContext } from "react";
+import { AppContext } from "../context/AppContext";
 
 export const Dashboard = () => {
-  const [togglePublish, setTogglePublish] = useState<boolean>(false);
+  const { toggleModal, modalProps } = useContext(AppContext);
   const { data: publications, isLoading } = useGetAllPublications();
 
   return (
@@ -34,6 +35,14 @@ export const Dashboard = () => {
               publication={publication}
             />
           ))
+        )}
+        {toggleModal && (
+          <ModalAlert
+            id={modalProps.id}
+            title={modalProps.title}
+            content={modalProps.content}
+            cancel={modalProps.cancel}
+          />
         )}
       </div>
     </MainBlock>

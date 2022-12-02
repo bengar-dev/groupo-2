@@ -1,5 +1,6 @@
-import React from "react";
+import { useContext } from "react";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
+import { AppContext } from "../../context/AppContext";
 import { useDeletePublication } from "../../hooks/publications/useDeletePublication";
 
 interface DropMenuPublicationProps {
@@ -11,14 +12,17 @@ interface DropMenuPublicationProps {
 
 export const DropMenuPublication = (props: DropMenuPublicationProps) => {
   const { publicationId, authorId, userInfoId, func } = props;
-  const deletePublication = useDeletePublication();
+  const { setModalProps, setToggleModal } = useContext(AppContext);
 
-  const handleDeletePublication = (
-    event: React.MouseEvent<HTMLButtonElement>,
-    id: string
-  ) => {
-    deletePublication.mutate({ id });
-    func(event);
+  const handleDeleteModalPublication = async (id: string) => {
+    setModalProps({
+      id,
+      title: "Delete",
+      content: "Are you sure to delete this publication ?",
+      cancel: true,
+    });
+    setToggleModal(true);
+    func(false);
   };
 
   return (
@@ -36,7 +40,7 @@ export const DropMenuPublication = (props: DropMenuPublicationProps) => {
           </li>
           <li>
             <button
-              onClick={(e) => handleDeletePublication(e, publicationId)}
+              onClick={(e) => handleDeleteModalPublication(publicationId)}
               className="flex space-x-1 items-center text-xs hover:text-red-500"
             >
               <AiFillDelete />
