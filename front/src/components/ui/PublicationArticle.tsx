@@ -29,14 +29,6 @@ export const PublicationArticle = (props: PublicationArticleProps) => {
             </span>
           </div>
         </div>
-        {toggleDropMenu && userInfoContext && (
-          <DropMenuPublication
-            publicationId={publication.id}
-            authorId={publication.authorId}
-            userInfoId={userInfoContext.id}
-            func={() => setToggleDropMenu(!toggleDropMenu)}
-          />
-        )}
         {publication.authorId === userInfoContext?.id && (
           <button
             className="text-lg hover:text-red-500"
@@ -44,6 +36,14 @@ export const PublicationArticle = (props: PublicationArticleProps) => {
           >
             <HiMenuAlt4 />
           </button>
+        )}
+        {toggleDropMenu && userInfoContext && (
+          <DropMenuPublication
+            publicationId={publication.id}
+            authorId={publication.authorId}
+            userInfoId={userInfoContext.id}
+            func={() => setToggleDropMenu(!toggleDropMenu)}
+          />
         )}
       </div>
       {publication.imgUrl && (

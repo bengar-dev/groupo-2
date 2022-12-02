@@ -1,5 +1,5 @@
 import React from "react";
-import { AiFillDelete } from "react-icons/ai";
+import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { useDeletePublication } from "../../hooks/publications/useDeletePublication";
 
 interface DropMenuPublicationProps {
@@ -23,8 +23,17 @@ export const DropMenuPublication = (props: DropMenuPublicationProps) => {
 
   return (
     <div className="absolute bg-white rounded-lg border-2 p-2 right-0 top-8">
-      <ul className="flex flex-col text-sm font-bold">
-        {authorId === userInfoId && (
+      {authorId === userInfoId && (
+        <ul className="flex flex-col space-y-2 text-sm font-bold">
+          <li>
+            <button
+              onClick={(e) => console.log("edit")}
+              className="flex space-x-1 items-center text-xs hover:text-orange-500"
+            >
+              <AiFillEdit />
+              <span>Edit</span>
+            </button>
+          </li>
           <li>
             <button
               onClick={(e) => handleDeletePublication(e, publicationId)}
@@ -34,8 +43,8 @@ export const DropMenuPublication = (props: DropMenuPublicationProps) => {
               <span>Delete</span>
             </button>
           </li>
-        )}
-      </ul>
+        </ul>
+      )}
     </div>
   );
 };
