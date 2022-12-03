@@ -6,6 +6,7 @@ import { SignIn } from "./views/SignIn";
 import { Register } from "./views/Register";
 import { Dashboard } from "./views/Dashboard";
 import { Profil } from "./views/Profil";
+import { EditProfil } from "./views/EditProfil";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/profil/:id" element={<Profil />} />
+        <Route path="/dashboard/edit-profil" element={<EditProfil />} />
       </Routes>
     </AppContextProvider>
   );

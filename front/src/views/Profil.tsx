@@ -1,7 +1,7 @@
 import { Button } from "@material-tailwind/react";
 import { useContext, useEffect } from "react";
 import { ImSpinner } from "react-icons/im";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Header } from "../components/ui/Header";
 import { MainBlock } from "../components/ui/MainBlock";
 import { AppContext } from "../context/AppContext";
@@ -9,6 +9,7 @@ import { useGetUser } from "../hooks/users/useGetUser";
 
 export const Profil = () => {
   const params = useParams();
+  const navigate = useNavigate();
   const { userInfoContext } = useContext(AppContext);
   const { data, refetch, isLoading, isRefetching } = useGetUser(params.id);
 
@@ -37,7 +38,12 @@ export const Profil = () => {
                 </div>
               </div>
               {data?.data?.id === userInfoContext?.id && (
-                <Button color="amber">Edit my profil</Button>
+                <Button
+                  color="amber"
+                  onClick={() => navigate("/dashboard/edit-profil")}
+                >
+                  Edit my profil
+                </Button>
               )}
             </>
           )}
