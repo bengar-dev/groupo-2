@@ -6,5 +6,6 @@ export type PublicationProps = {
   authorId: string;
   content: string;
   createdAt: Date;
+  likes: string[];
   imgUrl?: string | null;
 };

@@ -59,7 +59,7 @@ export const PublicationArticle = (props: PublicationArticleProps) => {
         <button>
           <AiOutlineLike className="text-indigo-800 hover:text-indigo-900" />
         </button>
-        <span className="text-base">10</span>
+        <span className="text-base">{publication.likes.length}</span>
       </div>
     </article>
   );

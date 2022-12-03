@@ -18,7 +18,6 @@ export const likeDislikePublication = async (
       publication.likes.push(userId);
     } else {
       const findUserId = publication.likes.findIndex((like) => like === userId);
-      console.log(findUserId);
       if (findUserId !== -1) publication.likes.splice(findUserId, 1);
       else publication.likes.push(userId);
     }
