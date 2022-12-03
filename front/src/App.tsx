@@ -5,6 +5,7 @@ import AppContextProvider from "./context/AppContext";
 import { SignIn } from "./views/SignIn";
 import { Register } from "./views/Register";
 import { Dashboard } from "./views/Dashboard";
+import { Profil } from "./views/Profil";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<SignIn />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/profil/:id" element={<Profil />} />
       </Routes>
     </AppContextProvider>
   );
