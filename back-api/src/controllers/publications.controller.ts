@@ -13,6 +13,7 @@ export const getAllPublications = async (
       include: { author: true },
       orderBy: { createdAt: "desc" },
     });
+
     return res.status(200).json(publications);
   } catch (err: any) {
     return res.status(500).json({ error: err.message });

@@ -27,6 +27,7 @@ model Publication {
   authorId  String
   author    User     @relation(fields: [authorId], references: [id])
   imgUrl    String?
+  likes     String[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

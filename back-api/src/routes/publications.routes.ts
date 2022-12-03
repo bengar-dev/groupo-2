@@ -1,4 +1,5 @@
 import express from "express";
+import { likeDislikePublication } from "~/controllers/likes.controller";
 import {
   deleteOnePublication,
   getAllPublications,
@@ -12,5 +13,6 @@ const router = express.Router();
 router.get("/", authVerification, getAllPublications);
 router.post("/", authVerification, multer, postOnePublication);
 router.delete("/:id", authVerification, deleteOnePublication);
+router.post("/:publicationId/likes", authVerification, likeDislikePublication);
 
 export default router;
