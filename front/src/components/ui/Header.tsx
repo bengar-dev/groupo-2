@@ -4,8 +4,10 @@ import { useGetInfoByToken } from "../../hooks/users/useGetInfoByToken";
 
 import { FaSignOutAlt } from "react-icons/fa";
 import GroupoLogo from "../../assets/GroupomaniaLogoBright.png";
+import { useNavigate } from "react-router-dom";
 
 export const Header = () => {
+  const navigate = useNavigate();
   const userInfo = useGetInfoByToken();
   const { userInfoContext, setUserInfoContext } = useContext(AppContext);
 
@@ -14,6 +16,12 @@ export const Header = () => {
       setUserInfoContext(userInfo.data.data);
     }
   }, [userInfo, userInfoContext]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+    window.location.reload();
+  };
 
   return (
     <header className="bg-gray-900 shadow-xl h-20 flex items-center justify-around">
@@ -25,7 +33,7 @@ export const Header = () => {
         <span className="font-bold text-white">
           {userInfoContext?.firstName} {userInfoContext?.lastName}
         </span>
-        <button onClick={() => console.log("logout")}>
+        <button onClick={handleLogout}>
           <FaSignOutAlt className="text-gray-100 hover:text-gray-300" />
         </button>
       </div>

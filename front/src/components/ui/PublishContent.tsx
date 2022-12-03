@@ -73,7 +73,7 @@ export const PublishContent = () => {
           <Button type="submit" color="green">
             {isLoading ? (
               <div className="flex justify-center">
-                <ImSpinner className="animate-spin text-xl text-pink-500" />
+                <ImSpinner className="animate-spin text-xl text-white" />
               </div>
             ) : (
               "Submit"
