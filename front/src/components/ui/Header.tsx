@@ -15,6 +15,9 @@ export const Header = () => {
     if (!userInfo.isFetching && userInfo.data && !userInfoContext) {
       setUserInfoContext(userInfo.data.data);
     }
+    if (userInfo.isRefetching) {
+      setUserInfoContext(userInfo?.data?.data);
+    }
   }, [userInfo, userInfoContext]);
 
   const handleLogout = () => {
@@ -29,7 +32,11 @@ export const Header = () => {
         <img src={GroupoLogo} className="h-14" alt="Groupomania Logo" />
       </Link>
       <div className="flex items-center space-x-2">
-        <div className="bg-purple-400 h-8 w-8 rounded-full"></div>
+        <img
+          src={userInfoContext?.avatar}
+          alt="avatar"
+          className="h-8 w-8 object-cover rounded-full"
+        />
         <Link
           to={`/dashboard/profil/${userInfoContext?.id}`}
           className="font-bold text-white"

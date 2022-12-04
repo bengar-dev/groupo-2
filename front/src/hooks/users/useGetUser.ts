@@ -19,9 +19,7 @@ export const useGetUser = (userid?: string) => {
         return response;
       }
     },
-    onSuccess: () => {
-      console.log("ok");
-    },
+    onSuccess: () => {},
     onError: () => {
       console.log("err");
     },

@@ -29,7 +29,11 @@ export const Profil = () => {
           ) : (
             <>
               <div className="flex space-x-2">
-                <div className="w-10 h-10 bg-red-500 rounded-full"></div>
+                <img
+                  src={data?.data.avatar}
+                  alt="avatar"
+                  className="h-8 w-8 object-cover rounded-full"
+                />
                 <div>
                   <h2 className="font-semibold">
                     {data?.data.firstName} {data?.data.lastName}

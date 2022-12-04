@@ -28,7 +28,11 @@ export const PublicationArticle = (props: PublicationArticleProps) => {
     <article className="p-2 text-sm rounded-lg bg-gray-50">
       <div className="relative flex items-center justify-between p-1">
         <div className="flex items-center space-x-2">
-          <div className="rounded-full bg-green-500 h-8 w-8"></div>
+          <img
+            src={publication.author?.avatar}
+            alt="avatar"
+            className="h-8 w-8 object-cover rounded-full"
+          />
           <div className="flex flex-col">
             <Link
               to={`/dashboard/profil/${publication.author.id}`}
