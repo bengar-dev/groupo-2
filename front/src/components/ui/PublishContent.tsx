@@ -49,7 +49,7 @@ export const PublishContent = () => {
       </Button>
       {togglePublish && (
         <form
-          onSubmit={handleSubmit(onSubmit, console.log)}
+          onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col space-y-2"
         >
           <Controller

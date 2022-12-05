@@ -11,7 +11,6 @@ import { Link } from "react-router-dom";
 import { CheckingPassword } from "../components/misc/CheckingPassword";
 import { useRegister } from "../hooks/auth/useRegister";
 import { ImSpinner2 } from "react-icons/im";
-import { useGetInfoByToken } from "../hooks/users/useGetInfoByToken";
 import { AlertNotif } from "../components/ui/AlertNotif";
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
@@ -19,7 +18,6 @@ import { AppContext } from "../context/AppContext";
 export const Register = () => {
   const { toggleAlert } = useContext(AppContext);
 
-  const userInfo = useGetInfoByToken();
   const mutation = useRegister();
 
   const {

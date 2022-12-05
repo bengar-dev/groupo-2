@@ -2,10 +2,7 @@ import { Header } from "../components/ui/Header";
 import { MainBlock } from "../components/ui/MainBlock";
 import { useGetAllPublications } from "../hooks/publications/useGetAllPublications";
 import { PublicationProps } from "../types/publications.types";
-import { formatDistance } from "date-fns";
 
-import { HiMenuAlt4 } from "react-icons/hi";
-import { AiOutlineLike } from "react-icons/ai";
 import { PublicationArticle } from "../components/ui/PublicationArticle";
 import { PublishContent } from "../components/ui/PublishContent";
 import { ImSpinner } from "react-icons/im";

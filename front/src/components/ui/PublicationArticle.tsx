@@ -6,6 +6,7 @@ import { useContext, useState } from "react";
 import { AppContext } from "../../context/AppContext";
 import { DropMenuPublication } from "./DropMenuPublication";
 import { useHandleLikes } from "../../hooks/publications/useHandleLikes";
+import { Link } from "react-router-dom";
 
 interface PublicationArticleProps {
   publication: PublicationProps;
@@ -27,11 +28,18 @@ export const PublicationArticle = (props: PublicationArticleProps) => {
     <article className="p-2 text-sm rounded-lg bg-gray-50">
       <div className="relative flex items-center justify-between p-1">
         <div className="flex items-center space-x-2">
-          <div className="rounded-full bg-green-500 h-8 w-8"></div>
+          <img
+            src={publication.author?.avatar}
+            alt="avatar"
+            className="h-8 w-8 object-cover rounded-full"
+          />
           <div className="flex flex-col">
-            <span className="text-xs font-medium">
+            <Link
+              to={`/dashboard/profil/${publication.author.id}`}
+              className="text-xs font-medium"
+            >
               {publication.author.firstName} {publication.author.lastName}
-            </span>
+            </Link>
             <span className="text-xs">
               {formatDistance(new Date(publication.createdAt), new Date())}
             </span>

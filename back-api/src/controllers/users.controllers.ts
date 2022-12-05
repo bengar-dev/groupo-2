@@ -4,6 +4,7 @@ import { User as UserModel } from "@prisma/client";
 import * as bcrypt from "bcrypt";
 import { deleteKeysFromData } from "~/misc/deleteKeys";
 import jwt from "jsonwebtoken";
+import fs from "fs";
 
 const prisma = new PrismaClient();
 
@@ -48,6 +49,41 @@ export const getUserInfoByToken = async (
     if (!user) throw new Error("User not found");
     const cleanUser = deleteKeysFromData([user], ["password"], true);
     return res.status(200).json(cleanUser);
+  } catch (err: any) {
+    return res.status(500).json({ error: err.message });
+  }
+};
+
+export const editUser = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const { userId } = res.locals;
+  const { firstName, lastName, email } = req.body;
+  try {
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+    if (!user) throw new Error("User not found");
+    const avatar = req.file
+      ? `${process.env.DEV_ENV}:${process.env.API_PORT}/api/images/${req.file.filename}`
+      : user.avatar;
+    if (req.file) {
+      const fileCurrentName = user.avatar.split("/images/")[1];
+      if (fileCurrentName) {
+        fs.unlink(`images/${fileCurrentName}`, (err) => {
+          if (err) throw new Error("Error while deleting image");
+        });
+      }
+    }
+    const updateUser = await prisma.user.update({
+      where: { id: userId },
+      data: {
+        firstName,
+        lastName,
+        email,
+        avatar,
+      },
+    });
+    return res.status(200).json(updateUser);
   } catch (err: any) {
     return res.status(500).json({ error: err.message });
   }

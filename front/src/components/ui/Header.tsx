@@ -4,7 +4,7 @@ import { useGetInfoByToken } from "../../hooks/users/useGetInfoByToken";
 
 import { FaSignOutAlt } from "react-icons/fa";
 import GroupoLogo from "../../assets/GroupomaniaLogoBright.png";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Header = () => {
   const navigate = useNavigate();
@@ -14,6 +14,9 @@ export const Header = () => {
   useEffect(() => {
     if (!userInfo.isFetching && userInfo.data && !userInfoContext) {
       setUserInfoContext(userInfo.data.data);
+    }
+    if (userInfo.isRefetching) {
+      setUserInfoContext(userInfo?.data?.data);
     }
   }, [userInfo, userInfoContext]);
 
@@ -25,14 +28,21 @@ export const Header = () => {
 
   return (
     <header className="bg-gray-900 shadow-xl h-20 flex items-center justify-around">
-      <div>
+      <Link to="/dashboard">
         <img src={GroupoLogo} className="h-14" alt="Groupomania Logo" />
-      </div>
+      </Link>
       <div className="flex items-center space-x-2">
-        <div className="bg-purple-400 h-8 w-8 rounded-full"></div>
-        <span className="font-bold text-white">
+        <img
+          src={userInfoContext?.avatar}
+          alt="avatar"
+          className="h-8 w-8 object-cover rounded-full"
+        />
+        <Link
+          to={`/dashboard/profil/${userInfoContext?.id}`}
+          className="font-bold text-white"
+        >
           {userInfoContext?.firstName} {userInfoContext?.lastName}
-        </span>
+        </Link>
         <button onClick={handleLogout}>
           <FaSignOutAlt className="text-gray-100 hover:text-gray-300" />
         </button>
