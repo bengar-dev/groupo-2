@@ -1,12 +1,14 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Input } from "@material-tailwind/react";
-import { useContext, useEffect, useMemo } from "react";
+import { useContext, useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Header } from "../components/ui/Header";
 import { MainBlock } from "../components/ui/MainBlock";
 import { AppContext } from "../context/AppContext";
 import { useEditUserInfo } from "../hooks/users/useEditUserInfo";
+import { handleFileChangeToGetPreview } from "../misc/handleFilePreview";
 import { userEditProfilSchema } from "../schemas/users";
+import { UserEditFormValue } from "../types/users.types";
 
 export const EditProfil = () => {
   const { mutateAsync } = useEditUserInfo();
@@ -18,7 +20,12 @@ export const EditProfil = () => {
     formState: { errors },
     reset,
   } = useForm({
-    defaultValues: { firstName: "", lastName: "", email: "", avatar: "" },
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      avatar: "",
+    },
     resolver: yupResolver(userEditProfilSchema),
   });
 
@@ -34,7 +41,7 @@ export const EditProfil = () => {
     }
   }, [userInfoContext]);
 
-  const onSubmit = async (data: any, e: any) => {
+  const onSubmit = async (data: UserEditFormValue, e: any) => {
     const formData = new FormData();
     formData.append("firstName", data.firstName);
     formData.append("lastName", data.lastName);
@@ -58,30 +65,64 @@ export const EditProfil = () => {
               name="firstName"
               control={control}
               render={({ field }) => (
-                <Input label="Firstname" type="text" {...field} />
+                <Input
+                  label="Firstname"
+                  type="text"
+                  error={Boolean(errors?.firstName)}
+                  {...field}
+                />
               )}
             />
             <Controller
               name="lastName"
               control={control}
               render={({ field }) => (
-                <Input label="Lastname" type="text" {...field} />
+                <Input
+                  label="Lastname"
+                  type="text"
+                  error={Boolean(errors?.lastName)}
+                  {...field}
+                />
               )}
             />
             <Controller
               name="email"
               control={control}
               render={({ field }) => (
-                <Input label="Email" type="email" {...field} />
+                <Input
+                  label="Email"
+                  type="email"
+                  error={Boolean(errors?.email)}
+                  {...field}
+                />
               )}
             />
-            <Controller
-              name="avatar"
-              control={control}
-              render={({ field }) => (
-                <Input id="avatar" label="Avatar" type="file" {...field} />
+            <div className="flex items-center space-x-4">
+              {userInfoContext && (
+                <img
+                  id="prev-avatar"
+                  src={userInfoContext.avatar}
+                  alt={`${userInfoContext.firstName} avatar`}
+                  className="w-20 h-20 rounded-full object-cover"
+                />
               )}
-            />
+              <Controller
+                name="avatar"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    id="avatar"
+                    label="Avatar"
+                    type="file"
+                    {...field}
+                    onChange={(event) => {
+                      field.onChange(event);
+                      handleFileChangeToGetPreview("avatar", "prev-avatar");
+                    }}
+                  />
+                )}
+              />
+            </div>
             <div className="flex space-x-2 justify-end mt-4">
               <Button onClick={() => history.back()} type="button" color="red">
                 Cancel

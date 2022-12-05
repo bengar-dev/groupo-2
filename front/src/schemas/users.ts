@@ -5,5 +5,5 @@ export const userEditProfilSchema = yup.object().shape({
   firstName: yup.string().required(),
   lastName: yup.string().required(),
   email: yup.string().email().required(),
-  avatar: yup.mixed().required(),
+  avatar: yup.mixed().nullable(),
 });

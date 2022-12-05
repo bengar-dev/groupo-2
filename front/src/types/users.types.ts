@@ -6,3 +6,10 @@ export type UserProps = {
   avatar: string;
   createdAt: Date;
 };
+
+export type UserEditFormValue = {
+  email: string;
+  firstName: string;
+  lastName: string;
+  avatar: string;
+};

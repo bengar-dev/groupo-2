@@ -7,14 +7,17 @@ interface DropMenuPublicationProps {
   publicationId: string;
   authorId: string;
   userInfoId: string;
-  func: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  func: (event: React.MouseEvent<HTMLButtonElement>, state: boolean) => void;
 }
 
 export const DropMenuPublication = (props: DropMenuPublicationProps) => {
   const { publicationId, authorId, userInfoId, func } = props;
   const { setModalProps, setToggleModal } = useContext(AppContext);
 
-  const handleDeleteModalPublication = async (id: string) => {
+  const handleDeleteModalPublication = async (
+    event: React.MouseEvent<HTMLButtonElement>,
+    id: string
+  ) => {
     setModalProps({
       id,
       title: "Delete",
@@ -22,7 +25,7 @@ export const DropMenuPublication = (props: DropMenuPublicationProps) => {
       cancel: true,
     });
     setToggleModal(true);
-    func(false);
+    func(event, false);
   };
 
   return (
@@ -40,7 +43,7 @@ export const DropMenuPublication = (props: DropMenuPublicationProps) => {
           </li>
           <li>
             <button
-              onClick={(e) => handleDeleteModalPublication(publicationId)}
+              onClick={(e) => handleDeleteModalPublication(e, publicationId)}
               className="flex space-x-1 items-center text-xs hover:text-red-500"
             >
               <AiFillDelete />
