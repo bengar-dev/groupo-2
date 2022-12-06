@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { ImSpinner } from "react-icons/im";
 import { usePostPublication } from "../../hooks/publications/usetPostPublication";
+import { handleFileChangeToGetPreview } from "../../misc/handleFilePreview";
 import { publishPublicationSchema } from "../../schemas/publications";
 
 export const PublishContent = () => {
@@ -38,12 +39,22 @@ export const PublishContent = () => {
     }
   };
 
+  const handleToggleToClearPreviewImage = () => {
+    /**
+     * when we close publication form, we need to reset all fields
+     */
+    if (togglePublish) {
+      reset();
+    }
+    setTogglePublish(!togglePublish);
+  };
+
   return (
     <div className="flex flex-col space-y-2 bg-gray-50 p-2 rounded">
       <Button
         type="button"
         color="gray"
-        onClick={() => setTogglePublish(!togglePublish)}
+        onClick={() => handleToggleToClearPreviewImage()}
       >
         What's on your mind ?
       </Button>
@@ -63,11 +74,28 @@ export const PublishContent = () => {
               />
             )}
           />
+          <div className="flex justify-center">
+            <img
+              id="prev-publication"
+              src="https://artsmidnorthcoast.com/wp-content/uploads/2014/05/no-image-available-icon-6.png"
+              alt="preview image"
+              className="max-w-full max-h-60 rounded-lg object-cover"
+            />
+          </div>
           <Controller
             name="img"
             control={control}
             render={({ field }) => (
-              <Input id="file" type="file" label="Image" {...field} />
+              <Input
+                id="file"
+                type="file"
+                label="Image"
+                {...field}
+                onChange={(event) => {
+                  field.onChange(event);
+                  handleFileChangeToGetPreview("file", "prev-publication");
+                }}
+              />
             )}
           />
           <Button type="submit" color="green">
