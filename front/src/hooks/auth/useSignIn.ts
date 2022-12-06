@@ -5,8 +5,6 @@ import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 
 export const useSignIn = () => {
-  const navigate = useNavigate();
-
   const { handleToggleAlert } = useContext(AppContext);
 
   return useMutation({
