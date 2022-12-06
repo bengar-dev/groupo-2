@@ -21,7 +21,6 @@ You can find initial project [here](https://github.com/bengar-dev/Groupomania).
 - TypeScript
 - Express
 - Prisma
-
 - Vite
 - React
 - Tailwind
