@@ -1,5 +1,5 @@
 ![Open Classroooms](https://github.com/thierry-laval/archives/raw/master/images/Logo_OpenClassrooms.png?raw=true)
-# Groupomania - version 2
+# Groupomania - version 2 [ 🚧 Under construction ]
 
 Second version about my old school project **Groupomania**. 
 The goal here is to compare what i did 1 year ago with what i do today.
