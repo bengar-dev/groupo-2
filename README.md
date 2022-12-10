@@ -29,6 +29,17 @@ You can find initial project [here](https://github.com/bengar-dev/Groupomania).
 
 Stack is installed on 🐋 Docker, it's recommanded to use it.
 
+**0. Config**
+
+Before launch or build app, you have to config .env file in **back-api** folder
+
+```ts
+DEV_ENV="http://XXX"
+API_PORT=8080
+TOKEN_KEY="XXXXXXXXXXXXXXXXX"
+DATABASE_URL="mongodb+srv://USERNAME:PASSWORD@YOURSERVER.mongodb.net/YOURCOLLECTIONAME"
+```
+
 **1. Using docker**
 
 On root folder launch : ```npm run reset```
