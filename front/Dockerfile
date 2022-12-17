@@ -2,11 +2,11 @@ FROM node:16
 
 WORKDIR /usr/src/front
 
-COPY package*.json .
+COPY package*.json ./
 
 RUN npm install -g pnpm
 
-COPY . .
+COPY . ./
 
 RUN pnpm install
 

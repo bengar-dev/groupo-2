@@ -2,7 +2,7 @@ FROM node:16
 
 WORKDIR /usr/src/app
 
-COPY package*.json .
+COPY package*.json ./
 
 RUN npm install -g pnpm
 
@@ -10,7 +10,7 @@ RUN npm install -g nodemon
 
 RUN npm install -g typescript
 
-COPY . .
+COPY . ./
 
 RUN pnpm install
 
