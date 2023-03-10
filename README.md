@@ -40,6 +40,8 @@ TOKEN_KEY="XXXXXXXXXXXXXXXXX"
 DATABASE_URL="mongodb+srv://USERNAME:PASSWORD@YOURSERVER.mongodb.net/YOURCOLLECTIONAME"
 ```
 
+And create "**images**" folder in root of ```back-api```
+
 **1. Using docker**
 
 On root folder launch : ```npm run reset```
